@@ -1,0 +1,48 @@
+.stage {
+  position: relative;
+  width: 1280px;
+  height: 720px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.character.left {
+  position: absolute;
+  left: 430px;
+  top: 250px;
+}
+
+.character.right {
+  position: absolute;
+  right: 430px;
+  top: 250px;
+}
+
+.dialogue.left {
+  position: absolute;
+  left: 250px;
+  top: 120px;
+}
+
+.dialogue.right {
+  position: absolute;
+  right: 250px;
+  top: 220px;
+}
+
+.choices {
+  position: absolute;
+  bottom: 80px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding: 0 120px;
+}
+
+.timing {
+  position: absolute;
+  bottom: 20px;
+  left: 100px;
+  width: 1080px;
+}
