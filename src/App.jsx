@@ -5,12 +5,11 @@ import './App.css';
 
 function App() {
   return (
-    <div style={{ backgroundColor: '#222', padding: '50px', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h1 style={{ color: 'white', fontFamily: 'sans-serif' }}>吹き出しテスト</h1>
-      
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', width: '100%', marginTop: '50px' }}>
-        <DialogueBoxLeft text="テストメッセージ1（左）" />
-        <DialogueBoxRight text="テストメッセージ2（右）" />
+    <div>
+      <h1>吹き出し</h1>
+      <div style={{ display: 'flex', gap: '20px' }}>
+        <DialogueBoxLeft text="テストメッセージ1" />
+        <DialogueBoxRight text="テストメッセージ2" />
       </div>
     </div>
   );
