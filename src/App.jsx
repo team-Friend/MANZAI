@@ -3,6 +3,7 @@ import { DialogueBoxLeft } from './components/DialogueBoxLeft';
 import { DialogueBoxRight } from './components/DialogueBoxRight';
 import { ChoiceButton } from './components/ChoiceButton';
 import { AudienceGauge } from './components/AudienceGauge';
+import { TimingBar } from './components/TimingBar';
 import './App.css';
 
 function App() {
@@ -26,6 +27,11 @@ function App() {
         <ChoiceButton text="なんでやねん！" />
         <ChoiceButton text="どういうことやねん！" />
         <ChoiceButton text="もうええわ！" />
+      </div>
+
+      {/* 4. タイミングバー*/}
+      <div style={{ marginTop: '60px', width: '100%' }}>
+        <TimingBar />
       </div>
 
     </div>
