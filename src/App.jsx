@@ -1,41 +1,38 @@
-import React from 'react';
-import { DialogueBoxLeft } from './components/DialogueBoxLeft';
-import { DialogueBoxRight } from './components/DialogueBoxRight';
-import { ChoiceButton } from './components/ChoiceButton';
-import { AudienceGauge } from './components/AudienceGauge';
-import { TimingBar } from './components/TimingBar';
-import './App.css';
+import { Routes, Route, Link } from "react-router-dom";
 
-function App() {
+function TitleScreen() {
   return (
-    <div style={{ backgroundColor: '#222', padding: '50px', minHeight: '100vh', color: 'white' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>UIコンポーネント 全部乗せテスト</h2>
-
-      {/* 1. ウケ度ゲージ */}
-      <div style={{ marginBottom: '40px', display: 'flex', justifyContent: 'center' }}>
-        <AudienceGauge score={80} />
-      </div>
-
-      {/* 2. 吹き出し（横並び） */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '40px' }}>
-        <DialogueBoxLeft text="こんにちは！" />
-        <DialogueBoxRight text="こんにちは！" />
-      </div>
-
-      {/* 3. 選択肢ボタン */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <ChoiceButton text="なんでやねん！" />
-        <ChoiceButton text="どういうことやねん！" />
-        <ChoiceButton text="もうええわ！" />
-      </div>
-
-      {/* 4. タイミングバー*/}
-      <div style={{ marginTop: '60px', width: '100%' }}>
-        <TimingBar />
-      </div>
-
+    <div>
+      <h1>タイトル</h1>
+      <Link to="/game">ゲーム開始</Link>
     </div>
   );
 }
 
-export default App;
+function GameScreen() {
+  return (
+    <div>
+      <h2>ゲーム画面</h2>
+      <Link to="/result">結果へ</Link>
+    </div>
+  );
+}
+
+function ResultScreen() {
+  return (
+    <div>
+      <h2>結果画面</h2>
+      <Link to="/">タイトルへ</Link>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<TitleScreen />} />
+      <Route path="/game" element={<GameScreen />} />
+      <Route path="/result" element={<ResultScreen />} />
+    </Routes>
+  );
+}
