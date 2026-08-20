@@ -1,38 +1,16 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import GamePage from "./pages/GamePage";
+import ResultPage from "./pages/ResultPage";
 
-function TitleScreen() {
-  return (
-    <div>
-      <h1>タイトル</h1>
-      <Link to="/game">ゲーム開始</Link>
-    </div>
-  );
-}
-
-function GameScreen() {
-  return (
-    <div>
-      <h2>ゲーム画面</h2>
-      <Link to="/result">結果へ</Link>
-    </div>
-  );
-}
-
-function ResultScreen() {
-  return (
-    <div>
-      <h2>結果画面</h2>
-      <Link to="/">タイトルへ</Link>
-    </div>
-  );
-}
-
-export default function App() {
+function App() {
   return (
     <Routes>
-      <Route path="/" element={<TitleScreen />} />
-      <Route path="/game" element={<GameScreen />} />
-      <Route path="/result" element={<ResultScreen />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/game" element={<GamePage />} />
+      <Route path="/result" element={<ResultPage />} />
     </Routes>
   );
 }
+
+export default App;
