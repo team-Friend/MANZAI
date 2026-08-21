@@ -7,9 +7,9 @@
   border-radius: 8px;
   padding: 12px 24px;
   margin: 10px;
-  }
+}
 
 .choice-btn:hover {
-  background-color: #e0e0e0;
-  transform: translateY(-3px);
+  background-color: #dcb072;
+  transform: translateY(-7px);
 }
