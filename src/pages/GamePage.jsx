@@ -5,6 +5,7 @@ import boke from "../assets/images/boke.png";
 import mic from "../assets/images/mic.png";
 import { DialogueBoxLeft } from "../components/DialogueBoxLeft";
 import { DialogueBoxRight } from "../components/DialogueBoxRight";
+import { ChoiceButton } from "../components/ChoiceButton";
 import "./GamePage.css";
 
 export default function GamePage() {
@@ -25,6 +26,13 @@ export default function GamePage() {
           <div className="dialog">
             <DialogueBoxRight text="どうもー" className="right-dialogue" />
             <DialogueBoxLeft text="どうもー！！！" className="left-dialogue" />
+          </div>
+
+          <div className="choice-grid">
+            <ChoiceButton text="A" />
+            <ChoiceButton text="B" />
+            <ChoiceButton text="C" />
+            <ChoiceButton text="D" />
           </div>
 
           <Link to="/result" className="result-link">
