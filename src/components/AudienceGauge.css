@@ -1,26 +1,31 @@
 .gauge-container {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin: 20px 0;
+  gap: 16px;
+  margin: 0;
   font-family: sans-serif;
+  width: 100%;
 }
 
 .gauge-label {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: #fff;
+  white-space: nowrap;
 }
+
 .gauge-bar-bg {
-  width: 300px;
-  height: 24px;
+  width: min(68vw, 820px);
+  height: 26px;
   background-color: #333;
   border: 4px solid #fff;
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
+
 .gauge-bar-fill {
   height: 100%;
-  background-color: #ffb700; 
+  background-color: #ffb700;
   transition: width 0.3s ease-in-out;
 }

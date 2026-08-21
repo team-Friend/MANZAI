@@ -112,6 +112,29 @@ body {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
 }
 
+.game-content {
+  position: absolute;
+  inset: 0;
+}
+
+.audience-gauge {
+  position: absolute;
+  left: 50%;
+  top: 35px;
+  transform: translateX(-50%);
+  width: min(200%, 980px);
+  z-index: 10;
+}
+
+.timing-display {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  width: min(72%, 820px);
+  z-index: 10;
+}
+
 .result-link {
   position: absolute;
   right: 3%;

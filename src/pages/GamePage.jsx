@@ -6,6 +6,8 @@ import mic from "../assets/images/mic.png";
 import { DialogueBoxLeft } from "../components/DialogueBoxLeft";
 import { DialogueBoxRight } from "../components/DialogueBoxRight";
 import { ChoiceButton } from "../components/ChoiceButton";
+import { AudienceGauge } from "../components/AudienceGauge";
+import { TimingBar } from "../components/TimingBar";
 import "./GamePage.css";
 
 export default function GamePage() {
@@ -33,6 +35,14 @@ export default function GamePage() {
             <ChoiceButton text="B" />
             <ChoiceButton text="C" />
             <ChoiceButton text="D" />
+          </div>
+
+          <div className="timing-display">
+            <TimingBar />
+          </div>
+
+          <div className="audience-gauge">
+            <AudienceGauge score={75} />
           </div>
 
           <Link to="/result" className="result-link">
