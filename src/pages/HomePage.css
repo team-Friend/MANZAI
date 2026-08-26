@@ -1,0 +1,49 @@
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: #111;
+}
+
+.home-stage-panel {
+  width: min(100%, 620px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.home-stage-link {
+  display: block;
+  text-decoration: none;
+}
+
+.home-stage-btn {
+  min-height: 82px;
+}
+
+@media (max-width: 768px) {
+  .home-stage-panel {
+    width: min(100%, 460px);
+    gap: 18px;
+  }
+
+  .home-stage-btn {
+    min-height: 72px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page {
+    padding: 16px 12px;
+  }
+
+  .home-stage-panel {
+    gap: 14px;
+  }
+
+  .choice-btn.home-stage-btn {
+    font-size: clamp(22px, 8vw, 34px);
+  }
+}
