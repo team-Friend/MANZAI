@@ -88,6 +88,51 @@ body {
   transform: scale(0.9);
   transform-origin: top center;
 }
+.audience {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+
+  width: 100%;
+  height: 45%;
+
+  z-index: 2;
+  pointer-events: none;
+}
+
+.audience img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: auto;
+  height: auto;
+
+  object-fit: contain;
+}
+
+.audience img:nth-child(3) {
+  width: 90%;
+  bottom: 0;
+  left: calc(50% - 50px);
+  z-index: 1;
+}
+
+.audience img:nth-child(2) {
+  width: 95%;
+  bottom: -30px;
+  left: calc(50% + 28px);
+  z-index: 2;
+}
+
+.audience img:nth-child(1) {
+  width: 100%;
+  bottom: -50px;
+  left: calc(50% -80px);
+  z-index: 3;
+}
 
 .choice-grid {
   position: absolute;
