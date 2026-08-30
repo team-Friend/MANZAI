@@ -60,6 +60,8 @@ export const TimingBar = () => {
     } else {
       setScore(0);
     }
+    
+    console.log("今回の点数:", score); 
   };
 
   return (
@@ -68,16 +70,17 @@ export const TimingBar = () => {
         
         <div 
           className="target-area" 
-          style={{ top: `${targetPosition}%`, transform: 'translateY(-50%)' }}
+          style={{ left: `${targetPosition}%`, transform: 'translateX(-50%)' }}
         >
           <div className="target-green"></div>
           <div className="target-brown"></div>
           <div className="target-orange"></div>
-          <div className="target-marker">▶︎</div>
+          <div className="target-marker">▼</div>
         </div>
+        
         <div 
           className="moving-line" 
-          style={{ top: `${position}%` }}
+          style={{ left: `${position}%` }}
         ></div>
         
       </div>
@@ -91,17 +94,12 @@ export const TimingBar = () => {
             onPointerDown={handleStop} 
             style={{ backgroundColor: '#ff5555', color: 'white', touchAction: 'manipulation' }}
           >
-            ここでツッコむ！！
+            ツッコむ
           </button>
         )}
         {score !== null && (
           <div className="result-text">
-            {score === 100 ? "大爆笑！！ (100点)" : 
-             score === 80 ? "ウケた！ (80点)" : 
-             score === 50 ? "ややウケ (50点)" : 
-             "スベった... (0点)"}
-            <br />
-            <button onClick={startGame} style={{ marginTop: '10px' }}>もう一度</button>
+            <button onClick={startGame}>もう一度</button>
           </div>
         )}
       </div>
