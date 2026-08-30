@@ -1,75 +1,71 @@
 .timing-bar-wrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   align-items: center;
+  justify-content: center;
+  gap: 40px; 
   width: 100%;
   margin-top: 50px;
 }
 
 .timing-bar-container {
   position: relative;
-  width: 80%;
-  max-width: 600px;
-  height: 20px;
-  background-color: #ccc; /* 全体のグレー背景 */
+  width: 30px;
+  height: 300px;
+  background-color: #ccc;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-/* 動く黄色いバー */
-.moving-bar {
+.moving-line {
   position: absolute;
-  top: 0;
   left: 0;
-  height: 100%;
-  background-color: #ffff00;
+  width: 100%;
+  height: 4px;
+  background-color: red;
+  transform: translateY(-50%);
   z-index: 10;
 }
 
-/* ターゲットエリア全体をまとめる枠 */
 .target-area {
   position: absolute;
-  top: 0;
-  height: 100%;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 5;
 }
 
-/* 4段階の判定ゾーン（絶対配置で重ねる） */
 .target-green {
   position: absolute;
-  width: 30vw; /* 緑の幅 */
-  max-width: 180px;
-  height: 100%;
+  width: 100%;
+  height: 90px;
   background-color: #8cbf8c;
 }
 
 .target-brown {
   position: absolute;
-  width: 16vw; /* 茶色の幅 */
-  max-width: 90px;
-  height: 100%;
+  width: 100%;
+  height: 48px;
   background-color: #c08040;
 }
 
 .target-orange {
   position: absolute;
-  width: 6vw; /* オレンジの幅（ピタリ賞） */
-  max-width: 30px;
-  height: 100%;
+  width: 100%;
+  height: 18px;
   background-color: #ff9900;
 }
 
 .target-marker {
   position: absolute;
-  top: -25px;
+  left: -25px;
   color: #ff9900;
   font-size: 20px;
 }
 
-/* ボタン周りのテスト用デザイン */
 .controls {
-  margin-top: 40px;
   text-align: center;
 }
 

@@ -9,7 +9,6 @@ export const TimingBar = () => {
 
   const directionRef = useRef(1);
   const requestRef = useRef(null);
-  
   const exactPositionRef = useRef(0); 
 
   const startGame = () => {
@@ -23,7 +22,6 @@ export const TimingBar = () => {
 
   useEffect(() => {
     const animate = () => {
-      // ★変更：計算には exactPositionRef を使う
       let nextPos = exactPositionRef.current + 1.2 * directionRef.current;
 
       if (nextPos >= 100) {
@@ -34,11 +32,8 @@ export const TimingBar = () => {
         directionRef.current = 1;
       }
       
-      // 裏側のメモを即座に更新
       exactPositionRef.current = nextPos;
-      // 画面の見た目も更新
       setPosition(nextPos);
-
       requestRef.current = requestAnimationFrame(animate);
     };
 
@@ -51,11 +46,9 @@ export const TimingBar = () => {
   const handleStop = () => {
     if (!isPlaying) return;
     
-    // 即座にアニメーションを止める
     cancelAnimationFrame(requestRef.current);
     setIsPlaying(false);
 
-    // ★変更：遅延のある position ではなく、遅延ゼロの exactPositionRef を使って判定する！
     const diff = Math.abs(exactPositionRef.current - targetPosition);
 
     if (diff <= 3) {
@@ -72,20 +65,21 @@ export const TimingBar = () => {
   return (
     <div className="timing-bar-wrapper">
       <div className="timing-bar-container">
-        <div className="timing-bar-bg"></div>
+        
         <div 
           className="target-area" 
-          style={{ left: `${targetPosition}%`, transform: 'translateX(-50%)' }}
+          style={{ top: `${targetPosition}%`, transform: 'translateY(-50%)' }}
         >
           <div className="target-green"></div>
           <div className="target-brown"></div>
           <div className="target-orange"></div>
-          <div className="target-marker">▼</div>
+          <div className="target-marker">▶︎</div>
         </div>
         <div 
-          className="moving-bar" 
-          style={{ width: `${position}%` }}
+          className="moving-line" 
+          style={{ top: `${position}%` }}
         ></div>
+        
       </div>
 
       <div className="controls">
