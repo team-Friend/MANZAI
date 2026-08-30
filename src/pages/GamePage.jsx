@@ -30,7 +30,7 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "まあ、世の中興奮することっていっぱいあるけど",
+    text: "まあ、世の中興奮 \nすることっていっぱいあるけど",
   },
   {
     speaker: "left",
@@ -38,7 +38,7 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "1番興奮するのは、街頭アンケートな！",
+    text: "1番興奮するのは、\n街頭アンケートな！",
   },
   {
     speaker: "right",
@@ -46,7 +46,7 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "してねえよ別に！ただ歩いてるだけじゃねえか！なんだお前",
+    text: "してねえよ別に！ \nただ歩いてるだけじゃねえか！ \nなんだお前",
   },
   {
     speaker: "right",
@@ -58,11 +58,15 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "いや、あの、渋谷で10代の女性を中心に聞いてるんですけど",
+    text: "いや、あの、渋谷で10代の女性 \nを中心に聞いてるんですけど",
   },
   {
     speaker: "left",
-    text: "1個も当てはまってねえよ！六本木で俺30代だからさ！渋谷行け、渋谷！",
+    text: "1個も当てはまってねえよ！",
+  },
+  {
+    speaker: "left",
+    text: "六本木で俺30代だからさ！ \n渋谷行け、渋谷！",
   },
   {
     speaker: "right",
@@ -70,11 +74,11 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "誰でもいいのかよ！どういうことだよ",
+    text: "誰でもいいのかよ！ \nどういうことだよ",
   },
   {
     speaker: "right",
-    text: "もし、問題あるようでしたら音声も変えますし",
+    text: "もし、問題あるようでしたら \n音声も変えますし",
   },
   {
     speaker: "left",
@@ -94,7 +98,11 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "なんでお前、目に材木はめ込んでこうやってアンケート答えてんだよ？カメラもねえしよ、別に",
+    text: "なんでお前、\n目に材木はめ込んでこうやって \nアンケート答えてんだよ？",
+  },
+  {
+    speaker: "left",
+    text: "カメラもねえしよ、別に",
   },
   {
     speaker: "right",
@@ -110,7 +118,7 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "すぐ終わんのね？じゃあ、早くしてくれよ",
+    text: "すぐ終わんのね？ \nじゃあ、早くしてくれよ",
   },
   {
     speaker: "right",
@@ -122,15 +130,19 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "このアンケートを何で知りましたか？",
+    text: "このアンケートを \n何で知りましたか？",
   },
   {
     speaker: "left",
-    text: "お前だよ！今、お前から聞いたわ！お前って書いとけ！お前！",
+    text: "お前だよ！ \n今、お前から聞いたわ！",
+  },
+  {
+    speaker: "left",
+    text: "お前って書いとけ！お前！",
   },
   {
     speaker: "right",
-    text: "あの、お名前聞いてもよろしいですか？",
+    text: "あの、\nお名前聞いてもよろしいですか？",
   },
   {
     speaker: "left",
@@ -142,11 +154,19 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "苗字だよ！どこの世界に佐藤伊達とかがいるんだよ？テニスのペアか？俺は。伊達みきおっつーんだよ！",
+    text: "苗字だよ！",
+  },
+  {
+    speaker: "left",
+    text: "どこの世界に佐藤伊達 \nとかがいるんだよ？",
+  },
+  {
+    speaker: "left",
+    text: "テニスのペアか？ 俺は。 \n伊達みきおっつーんだよ！",
   },
   {
     speaker: "right",
-    text: "あなたは何か、ニックネームはありますか？",
+    text: "あなたは何か、\nニックネームはありますか？",
   },
   {
     speaker: "left",
@@ -158,7 +178,7 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "あんまないけど、まあ、伊達ちゃんとか言われるかな",
+    text: "あんまないけど、まあ、\n伊達ちゃんとか言われるかな",
   },
   {
     speaker: "right",
@@ -174,7 +194,11 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "誰がおデブちゃんだ！？言われるか！お前、そんなもん！伊達ちゃん！",
+    text: "誰がおデブちゃんだ！？ \n言われるか！",
+  },
+  {
+    speaker: "left",
+    text: "お前、そんなもん！伊達ちゃん！",
   },
   {
     speaker: "right",
@@ -190,11 +214,15 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "A、A型。B、O型。C、B型。D、AB型",
+    text: "A、A型。\nB、O型。\nC、B型。\nD、AB型。",
   },
   {
     speaker: "left",
-    text: "ややこしいわ、お前！なんだ、その聞き方！？お前！Bだ、B！",
+    text: "ややこしいわ、お前！",
+  },
+  {
+    speaker: "left",
+    text: "なんだ、その聞き方！？ \nお前！Bだ、B！",
   },
   {
     speaker: "right",
@@ -210,7 +238,7 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "そうやって答えんだろ、これ！なあ？そうやって答えるんでしょ？これ！",
+    text: "そうやって答えんだろ、これ！",
   },
   {
     speaker: "right",
@@ -230,14 +258,22 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "えー、1人暮らしですか？それとも、その日暮らしですか？",
+    text: "えー、1人暮らしですか？",
+  },
+  {
+    speaker: "right",
+    text: "それとも、その日暮らしですか？",
   },
   {
     speaker: "left",
-    text: "何が聞きてえんだよ！？なんだ、その日暮らしって、お前。実家に住んでんだ！",
+    text: "何が聞きてえんだよ！？",
   },
   {
-      speaker: "right",
+    speaker: "left",
+    text: "なんだ、その日暮らしって、お前。実家に住んでんだ！",
+  },
+  {
+    speaker: "right",
     text: "実家？",
   },
   {
@@ -254,11 +290,15 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "あ、すみません。そのうち、杯を交わしている兄弟は何人ですか？",
+    text: "あ、すみません。",
+  },
+  {
+    speaker: "right",
+    text: "そのうち、\n杯を交わしている兄弟は \n何人ですか？",
   },
   {
     speaker: "left",
-    text: "そんな兄弟いねえわ！みんな、血の繋がった俺の兄弟だわ！",
+    text: "そんな兄弟いねえわ！ \nみんな、血の繋がった俺の兄弟だわ！",
   },
   {
     speaker: "right",
@@ -266,15 +306,27 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "繋がった兄弟ってなんだよ！ぴんから兄弟みたいになってんじゃねえか！…なってねえよ！全然なってねえわ！",
-  },
-  {
-    speaker: "right",
-    text: "お仕事は、何力団をされてるんですか？",
+    text: "繋がった兄弟ってなんだよ！",
   },
   {
     speaker: "left",
-    text: "暴力団限定だろ、それよ！ふざけてんのかお前、さっきから！俺は、お前のアンケートに協力してんだからな、協力団だよ！",
+    text: "ぴんから兄弟みたいに \nなってんじゃねえか！",
+  },
+  {
+    speaker: "left",
+    text: "…なってねえよ！ \n全然なってねえわ！",
+  },
+  {
+    speaker: "right",
+    text: "お仕事は、\n何力団をされてるんですか？",
+  },
+  {
+    speaker: "left",
+    text: "暴力団限定だろ、それよ！ \nふざけてんのかお前、さっきから！",
+  },
+  {
+    speaker: "left",
+    text: "俺は、\nお前のアンケートに協力して \nんだからな、協力団だよ！",
   },
   {
     speaker: "right",
@@ -282,7 +334,7 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "協力団って書いとけ！…会社員。会社員だよ",
+    text: "協力団って書いとけ！\n…会社員。会社員だよ",
   },
   {
     speaker: "right",
@@ -294,7 +346,11 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "えー、会社員ということで、いろんな派閥があると思われますが",
+    text: "えー、会社員ということで、",
+  },
+  {
+    speaker: "right",
+    text: "いろんな派閥があると思われますが",
   },
   {
     speaker: "left",
@@ -302,11 +358,11 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "あなたは、うどん派ですか？蕎麦派ですか？",
+    text: "あなたは、うどん派ですか？ \n蕎麦派ですか？",
   },
   {
     speaker: "left",
-    text: "そんな派閥ねえわ！おい、なんだ、そのちっぽけ会社は",
+    text: "そんな派閥ねえわ！ \nおい、なんだ、\nそのちっぽけ会社は",
   },
   {
     speaker: "right",
@@ -318,15 +374,19 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "蕎麦派に寝返る可能性ってどれくらいありますか？",
+    text: "蕎麦派に寝返る可能性って \nどれくらいありますか？",
   },
   {
     speaker: "left",
-    text: "結構あるよ？今日の昼飯、ざる蕎麦食ってるからね",
+    text: "結構あるよ？ \n今日の昼飯、ざる蕎麦 \n食ってるからね",
   },
   {
     speaker: "right",
-    text: "えーでは、中東和平問題で揺れる世界情勢ですが",
+    text: "えーでは、",
+  },
+  {
+    speaker: "right",
+    text: "中東和平問題で揺れる \n世界情勢ですが",
   },
   {
     speaker: "left",
@@ -334,7 +394,7 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "うどん派のあなたは、どう責任を感じていますか？",
+    text: "うどん派のあなたは、\nどう責任を感じていますか？",
   },
   {
     speaker: "left",
@@ -354,7 +414,11 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "蕎麦とか、うどんとか関係ねえじゃねえか！麺類は！人類の話だろ、それ。お前",
+    text: "蕎麦とか、うどんとか \n関係ねえじゃねえか！",
+  },
+  {
+    speaker: "left",
+    text: "麺類は！ \n人類の話だろ、それ。お前!",
   },
   {
     speaker: "right",
@@ -362,11 +426,15 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "ちょ、早くしてくんねえかな！？焼き立てのメロンパン売り切れんだろうが！早くしろよ、こら！",
+    text: "ちょ、早くしてくんねえかな！？",
+  },
+  {
+    speaker: "left",
+    text: "焼き立てのメロンパン \n売り切れんだろうが！ \n早くしろよ、こら！",
   },
   {
     speaker: "right",
-    text: "えー、外食と自炊では、自炊の方が多い",
+    text: "えー、外食と自炊では、\n自炊の方が多い",
   },
   {
     speaker: "left",
@@ -378,7 +446,7 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "ああ、家でご飯作るってことか。YESだ",
+    text: "ああ、家でご飯作るってことか。\nYESだ",
   },
   {
     speaker: "right",
@@ -398,7 +466,7 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "豚肉、じゃがいも、人参、玉ねぎを煮込んでいます",
+    text: "豚肉、じゃがいも、人参、\n玉ねぎを煮込んでいます",
   },
   {
     speaker: "left",
@@ -410,38 +478,46 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "カレーだわ。それ、カレーだろ、お前。何ができますか？YESっておかしいだろ！カレーかホワイトシチューだわ！",
+    text: "カレーだわ。",
+  },
+  {
+    speaker: "left",
+    text: "YESっておかしいだろ！ \nカレーかホワイトシチューだわ！",
   },
   {
     speaker: "right",
     text: "ちょっと何言ってるかわかんない",
   },
   {
-    speaker: "left",
+    speaker: "right",
     text: "えー、よく死にたくなることがある？",
   },
   {
-    speaker: "right",
+    speaker: "left",
     text: "何が聞きたいの？さっきから、お前",
   },
   {
-    speaker: "left",
+    speaker: "right",
     text: "DEAD or ALIVE ？（キリッ）",
   },
   {
-    speaker: "right",
+    speaker: "left",
     text: "やかましいわ！なんで良い声で言ったんだよ？",
   },
   {
-    speaker: "left",
+    speaker: "right",
     text: "DEAD？",
   },
   {
-    speaker: "right",
-    text: "DEADじゃない、ALIVEだわ！ALIVE！お前！200歳まで生きてくんだ！バカタレが！",
+    speaker: "left",
+    text: "DEADじゃない、ALIVEだわ！",
   },
   {
-    speaker: "righ",
+    speaker: "left",
+    text: "ALIVE！お前！ \n200歳まで生きてくんだ！ \nバカタレが！",
+  },
+  {
+    speaker: "right",
     text: "女性がキレイになるなら整形してもいい？",
   },
   {
@@ -486,7 +562,7 @@ const scenario = [
   },
   {
     speaker: "right",
-    text: "今の気持ちを誰に1番伝えたいですか？",
+    text: "今の気持ちを \n誰に1番伝えたいですか？",
   },
   {
     speaker: "left",
