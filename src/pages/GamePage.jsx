@@ -4,6 +4,9 @@ import bgImage from "../assets/images/stage1.png";
 import tukkomi from "../assets/images/tukkomi.png";
 import boke from "../assets/images/boke.png";
 import mic from "../assets/images/mic.png";
+import Audience1 from "../assets/images/audience1.png";
+import Audience2 from "../assets/images/audience2.png";
+import Audience3 from "../assets/images/audience3.png";
 import { DialogueBoxLeft } from "../components/DialogueBoxLeft";
 import { DialogueBoxRight } from "../components/DialogueBoxRight";
 import { ChoiceButton } from "../components/ChoiceButton";
@@ -626,6 +629,12 @@ export default function GamePage() {
               }
               className="left-dialogue"
             />
+          </div>
+
+          <div className="audience">
+            <img src={Audience1} alt="audience 1" />
+            <img src={Audience2} alt="audience 2" />
+            <img src={Audience3} alt="audience 3" />
           </div>
 
           <div className="choice-grid">
