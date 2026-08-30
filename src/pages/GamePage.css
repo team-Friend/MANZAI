@@ -92,7 +92,7 @@ body {
 .choice-grid {
   position: absolute;
   left: 50%;
-  bottom: 4%;
+  bottom: 5%;
   transform: translateX(-50%);
   display: grid;
   grid-template-columns: repeat(2, minmax(250px, 1fr));
@@ -129,7 +129,7 @@ body {
 .timing-display {
   position: absolute;
   left: 50%;
-  top: 58%;
+  top: 57%;
   transform: translateX(-50%);
   width: min(72%, 820px);
   z-index: 10;
