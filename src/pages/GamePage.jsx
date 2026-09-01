@@ -13,7 +13,9 @@ import { ChoiceButton } from "../components/ChoiceButton";
 import { AudienceGauge } from "../components/AudienceGauge";
 import { TimingBar } from "../components/TimingBar";
 import {
+  addAudienceScore,
   canAdvanceDialogue,
+  getAudienceGaugeProgress,
   getAudienceReactionState,
   resolveRound,
 } from "../gameLogic";
@@ -609,7 +611,9 @@ export default function GamePage() {
   const [isTimingActive, setIsTimingActive] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
   const [timingScore, setTimingScore] = useState(0);
+  const [audienceScore, setAudienceScore] = useState(0);
 
+  const totalProblems = scenario.filter((dialogue) => dialogue.showChoiceUi).length;
   const currentDialogue = scenario[currentDialogueIndex];
 
   const handleAdvanceDialogue = () => {
@@ -688,13 +692,24 @@ export default function GamePage() {
     setIsTimingActive(false);
 
     if (result.isCorrect) {
+      setAudienceScore((prevScore) =>
+        addAudienceScore({
+          currentScore: prevScore,
+          gainedScore: result.finalScore,
+          totalProblems,
+        })
+      );
       setTimingScore(nextTimingScore);
       setFinalScore(nextTimingScore);
     }
   };
 
   const showChoiceUi = currentDialogue?.showChoiceUi === true;
-  const audienceReaction = getAudienceReactionState(finalScore);
+  const audienceGaugeScore = getAudienceGaugeProgress({
+    totalScore: audienceScore,
+    totalProblems,
+  });
+  const audienceReaction = getAudienceReactionState(audienceGaugeScore);
   const audienceClassName = audienceReaction.isLaughing
     ? `audience audience-laugh audience-laugh-${audienceReaction.intensity}`
     : "audience";
@@ -758,7 +773,7 @@ export default function GamePage() {
           )}
 
           <div className="audience-gauge">
-            <AudienceGauge score={Math.min(100, finalScore)} />
+            <AudienceGauge score={audienceGaugeScore} />
           </div>
 
           {selectedAnswer && (

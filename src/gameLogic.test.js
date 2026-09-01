@@ -1,7 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  addAudienceScore,
   canAdvanceDialogue,
+  getAudienceGaugeProgress,
   getAudienceReactionState,
   getTimingScore,
   resolveRound,
@@ -44,6 +46,19 @@ test('観客の笑い反応はスコアに応じて強くなる', () => {
   assert.deepEqual(getAudienceReactionState(0), { isLaughing: false, intensity: 0 });
   assert.deepEqual(getAudienceReactionState(50), { isLaughing: true, intensity: 1 });
   assert.deepEqual(getAudienceReactionState(90), { isLaughing: true, intensity: 2 });
+});
+
+test('問題数に応じて満点が全問満点で最大化される', () => {
+  assert.equal(getAudienceGaugeProgress({ totalScore: 0, totalProblems: 10 }), 0);
+  assert.equal(getAudienceGaugeProgress({ totalScore: 500, totalProblems: 10 }), 50);
+  assert.equal(getAudienceGaugeProgress({ totalScore: 1000, totalProblems: 10 }), 100);
+  assert.equal(getAudienceGaugeProgress({ totalScore: 250, totalProblems: 4 }), 62.5);
+});
+
+test('正解ごとにスコアが蓄積され、ステージ全体で満点を超えない', () => {
+  assert.equal(addAudienceScore({ currentScore: 0, gainedScore: 100, totalProblems: 10 }), 100);
+  assert.equal(addAudienceScore({ currentScore: 800, gainedScore: 200, totalProblems: 10 }), 1000);
+  assert.equal(addAudienceScore({ currentScore: 950, gainedScore: 100, totalProblems: 10 }), 1000);
 });
 
 test('解答後なら次の会話へ進める', () => {
