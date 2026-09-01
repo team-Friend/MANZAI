@@ -695,15 +695,22 @@ export default function GamePage() {
     setIsTimingActive(false);
 
     if (result.isCorrect && result.finalScore > 0) {
-      setAudienceScore((prevScore) =>
-        addAudienceScore({
-          currentScore: prevScore,
-          gainedScore: result.finalScore,
-          totalProblems,
-        })
-      );
-      setIsAudienceAnimating(true);
-      setAudienceAnimationKey((prevKey) => prevKey + 1);
+      const previousAudienceScore = audienceScore;
+      const nextAudienceScore = addAudienceScore({
+        currentScore: previousAudienceScore,
+        gainedScore: result.finalScore,
+        totalProblems,
+      });
+
+      setAudienceScore(nextAudienceScore);
+
+      if (nextAudienceScore > previousAudienceScore) {
+        setIsAudienceAnimating(true);
+        setAudienceAnimationKey((prevKey) => prevKey + 1);
+      } else {
+        setIsAudienceAnimating(false);
+      }
+
       setTimingScore(nextTimingScore);
       setFinalScore(nextTimingScore);
       return;
