@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { getTimingScore, resolveRound } from './gameLogic.js';
+import { getAudienceReactionState, getTimingScore, resolveRound } from './gameLogic.js';
 
 test('タイミングの近さで点数が計算される', () => {
   assert.equal(getTimingScore(50, 50), 100);
@@ -33,4 +33,10 @@ test('正解ならタイミングの点数がそのまま最終スコアにな�
   assert.equal(result.isCorrect, true);
   assert.equal(result.timingScore, 80);
   assert.equal(result.finalScore, 80);
+});
+
+test('観客の笑い反応はスコアに応じて強くなる', () => {
+  assert.deepEqual(getAudienceReactionState(0), { isLaughing: false, intensity: 0 });
+  assert.deepEqual(getAudienceReactionState(50), { isLaughing: true, intensity: 1 });
+  assert.deepEqual(getAudienceReactionState(90), { isLaughing: true, intensity: 2 });
 });

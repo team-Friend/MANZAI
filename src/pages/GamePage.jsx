@@ -12,7 +12,7 @@ import { DialogueBoxRight } from "../components/DialogueBoxRight";
 import { ChoiceButton } from "../components/ChoiceButton";
 import { AudienceGauge } from "../components/AudienceGauge";
 import { TimingBar } from "../components/TimingBar";
-import { resolveRound } from "../gameLogic";
+import { getAudienceReactionState, resolveRound } from "../gameLogic";
 import "./GamePage.css";
 
 const scenario = [
@@ -640,6 +640,10 @@ export default function GamePage() {
   };
 
   const currentDialogue = scenario[currentDialogueIndex];
+  const audienceReaction = getAudienceReactionState(finalScore);
+  const audienceClassName = audienceReaction.isLaughing
+    ? `audience audience-laugh audience-laugh-${audienceReaction.intensity}`
+    : "audience";
 
   return (
     <div className="game-page">
@@ -671,7 +675,7 @@ export default function GamePage() {
             />
           </div>
 
-          <div className="audience">
+          <div className={audienceClassName}>
             <img src={Audience1} alt="audience 1" />
             <img src={Audience2} alt="audience 2" />
             <img src={Audience3} alt="audience 3" />
