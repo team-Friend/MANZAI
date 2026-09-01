@@ -21,6 +21,14 @@ export function getAudienceReactionState(score) {
   return { isLaughing: true, intensity: 1 };
 }
 
+export function canAdvanceDialogue({ showChoiceUi, selectedAnswer, isTimingActive }) {
+  if (!showChoiceUi) {
+    return true;
+  }
+
+  return Boolean(selectedAnswer) && !isTimingActive;
+}
+
 export function resolveRound({
   selectedAnswer,
   correctAnswer,

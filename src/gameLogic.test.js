@@ -1,6 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { getAudienceReactionState, getTimingScore, resolveRound } from './gameLogic.js';
+import {
+  canAdvanceDialogue,
+  getAudienceReactionState,
+  getTimingScore,
+  resolveRound,
+} from './gameLogic.js';
 
 test('タイミングの近さで点数が計算される', () => {
   assert.equal(getTimingScore(50, 50), 100);
@@ -39,4 +44,11 @@ test('観客の笑い反応はスコアに応じて強くなる', () => {
   assert.deepEqual(getAudienceReactionState(0), { isLaughing: false, intensity: 0 });
   assert.deepEqual(getAudienceReactionState(50), { isLaughing: true, intensity: 1 });
   assert.deepEqual(getAudienceReactionState(90), { isLaughing: true, intensity: 2 });
+});
+
+test('解答後なら次の会話へ進める', () => {
+  assert.equal(canAdvanceDialogue({ showChoiceUi: true, selectedAnswer: 'B', isTimingActive: false }), true);
+  assert.equal(canAdvanceDialogue({ showChoiceUi: true, selectedAnswer: null, isTimingActive: false }), false);
+  assert.equal(canAdvanceDialogue({ showChoiceUi: true, selectedAnswer: 'B', isTimingActive: true }), false);
+  assert.equal(canAdvanceDialogue({ showChoiceUi: false, selectedAnswer: null, isTimingActive: false }), true);
 });
