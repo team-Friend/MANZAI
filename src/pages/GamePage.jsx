@@ -12,6 +12,7 @@ import { DialogueBoxRight } from "../components/DialogueBoxRight";
 import { ChoiceButton } from "../components/ChoiceButton";
 import { AudienceGauge } from "../components/AudienceGauge";
 import { TimingBar } from "../components/TimingBar";
+import { resolveRound } from "../gameLogic";
 import "./GamePage.css";
 
 const scenario = [
@@ -579,6 +580,10 @@ const scenario = [
 
 export default function GamePage() {
   const [currentDialogueIndex, setCurrentDialogueIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [isTimingActive, setIsTimingActive] = useState(false);
+  const [finalScore, setFinalScore] = useState(0);
+  const [timingScore, setTimingScore] = useState(0);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -598,6 +603,41 @@ export default function GamePage() {
       window.removeEventListener("keydown", handleKeyPress);
     };
   }, []);
+
+  const correctAnswer = "B";
+
+  const handleAnswerClick = (answer) => {
+    if (selectedAnswer) return;
+
+    setSelectedAnswer(answer);
+
+    if (answer !== correctAnswer) {
+      setTimingScore(0);
+      setFinalScore(0);
+      setIsTimingActive(false);
+      return;
+    }
+
+    setIsTimingActive(true);
+  };
+
+  const handleTimingFinish = ({ timingScore: nextTimingScore, currentPosition, targetPosition }) => {
+    const result = resolveRound({
+      selectedAnswer,
+      correctAnswer,
+      currentPosition,
+      targetPosition,
+    });
+
+    setTimingScore(result.timingScore);
+    setFinalScore(result.finalScore);
+    setIsTimingActive(false);
+
+    if (result.isCorrect) {
+      setTimingScore(nextTimingScore);
+      setFinalScore(nextTimingScore);
+    }
+  };
 
   const currentDialogue = scenario[currentDialogueIndex];
 
@@ -638,19 +678,31 @@ export default function GamePage() {
           </div>
 
           <div className="choice-grid">
-            <ChoiceButton text="A" />
-            <ChoiceButton text="B" />
-            <ChoiceButton text="C" />
-            <ChoiceButton text="D" />
+            {['A', 'B', 'C', 'D'].map((option) => (
+              <ChoiceButton
+                key={option}
+                text={option}
+                disabled={Boolean(selectedAnswer)}
+                onClick={() => handleAnswerClick(option)}
+              />
+            ))}
           </div>
 
           <div className="timing-display">
-            <TimingBar />
+            <TimingBar isActive={isTimingActive} onFinish={handleTimingFinish} />
           </div>
 
           <div className="audience-gauge">
-            <AudienceGauge score={75} />
+            <AudienceGauge score={Math.min(100, finalScore)} />
           </div>
+
+          {selectedAnswer && (
+            <div className="result-link" style={{ right: '3%', bottom: '12%' }}>
+              <strong>
+                {selectedAnswer === correctAnswer ? `正解！ ${finalScore}点` : "不正解"}
+              </strong>
+            </div>
+          )}
 
           <Link to="/result" className="result-link">
             <button type="button">結果を見る</button>
