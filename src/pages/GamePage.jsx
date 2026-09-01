@@ -614,6 +614,8 @@ export default function GamePage() {
   const [finalScore, setFinalScore] = useState(0);
   const [timingScore, setTimingScore] = useState(0);
   const [audienceScore, setAudienceScore] = useState(0);
+  const [isAudienceAnimating, setIsAudienceAnimating] = useState(false);
+  const [audienceAnimationKey, setAudienceAnimationKey] = useState(0);
   const [isWrongAnswerEffectActive, setIsWrongAnswerEffectActive] =
     useState(false);
 
@@ -684,6 +686,7 @@ export default function GamePage() {
     setSelectedAnswer(answer);
 
     if (answer !== correctAnswer) {
+      setIsAudienceAnimating(false);
       setIsWrongAnswerEffectActive(true);
       setTimingScore(0);
       setFinalScore(0);
@@ -710,17 +713,29 @@ export default function GamePage() {
     setFinalScore(result.finalScore);
     setIsTimingActive(false);
 
-    if (result.isCorrect) {
-      setAudienceScore((prevScore) =>
-        addAudienceScore({
-          currentScore: prevScore,
-          gainedScore: result.finalScore,
-          totalProblems,
-        }),
-      );
+    if (result.isCorrect && result.finalScore > 0) {
+      const previousAudienceScore = audienceScore;
+      const nextAudienceScore = addAudienceScore({
+        currentScore: previousAudienceScore,
+        gainedScore: result.finalScore,
+        totalProblems,
+      });
+
+      setAudienceScore(nextAudienceScore);
+
+      if (nextAudienceScore > previousAudienceScore) {
+        setIsAudienceAnimating(true);
+        setAudienceAnimationKey((prevKey) => prevKey + 1);
+      } else {
+        setIsAudienceAnimating(false);
+      }
+
       setTimingScore(nextTimingScore);
       setFinalScore(nextTimingScore);
+      return;
     }
+
+    setIsAudienceAnimating(false);
   };
 
   const showChoiceUi = currentDialogue?.showChoiceUi === true;
@@ -729,9 +744,10 @@ export default function GamePage() {
     totalProblems,
   });
   const audienceReaction = getAudienceReactionState(audienceGaugeScore);
-  const audienceClassName = audienceReaction.isLaughing
-    ? `audience audience-laugh audience-laugh-${audienceReaction.intensity}`
-    : "audience";
+  const audienceClassName =
+    isAudienceAnimating && audienceReaction.isLaughing
+      ? `audience audience-laugh audience-laugh-${audienceReaction.intensity}`
+      : "audience";
 
   return (
     <div className="game-page">
@@ -771,7 +787,7 @@ export default function GamePage() {
             />
           </div>
 
-          <div className={audienceClassName}>
+          <div key={audienceAnimationKey} className={audienceClassName}>
             <img src={Audience1} alt="audience 1" />
             <img src={Audience2} alt="audience 2" />
             <img src={Audience3} alt="audience 3" />

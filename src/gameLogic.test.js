@@ -46,6 +46,7 @@ test('観客の笑い反応はスコアに応じて強くなる', () => {
   assert.deepEqual(getAudienceReactionState(0), { isLaughing: false, intensity: 0 });
   assert.deepEqual(getAudienceReactionState(50), { isLaughing: true, intensity: 1 });
   assert.deepEqual(getAudienceReactionState(90), { isLaughing: true, intensity: 2 });
+  assert.deepEqual(getAudienceReactionState(98), { isLaughing: true, intensity: 2 });
 });
 
 test('問題数に応じて満点が全問満点で最大化される', () => {
