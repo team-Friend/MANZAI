@@ -12,7 +12,9 @@ import {
 test('タイミングの近さで点数が計算される', () => {
   assert.equal(getTimingScore(50, 50), 100);
   assert.equal(getTimingScore(58, 50), 80);
+  assert.equal(getTimingScore(60, 50), 80);
   assert.equal(getTimingScore(65, 50), 50);
+  assert.equal(getTimingScore(70, 50), 50);
   assert.equal(getTimingScore(80, 50), 0);
 });
 

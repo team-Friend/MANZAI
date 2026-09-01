@@ -2,8 +2,8 @@ export function getTimingScore(currentPosition, targetPosition) {
   const diff = Math.abs(currentPosition - targetPosition);
 
   if (diff <= 3) return 100;
-  if (diff <= 8) return 80;
-  if (diff <= 15) return 50;
+  if (diff <= 10) return 80;
+  if (diff <= 20) return 50;
   return 0;
 }
 
