@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import bgImage from "../assets/images/stage1.png";
 import tukkomi from "../assets/images/tukkomi.png";
+import tukkomi2 from "../assets/images/tukkomi2.png";
 import boke from "../assets/images/boke.png";
+import boke2 from "../assets/images/boke2.png";
 import mic from "../assets/images/mic.png";
 import Audience1 from "../assets/images/audience1.png";
 import Audience2 from "../assets/images/audience2.png";
@@ -614,9 +616,25 @@ export default function GamePage() {
   const [audienceScore, setAudienceScore] = useState(0);
   const [isAudienceAnimating, setIsAudienceAnimating] = useState(false);
   const [audienceAnimationKey, setAudienceAnimationKey] = useState(0);
+  const [isWrongAnswerEffectActive, setIsWrongAnswerEffectActive] =
+    useState(false);
 
-  const totalProblems = scenario.filter((dialogue) => dialogue.showChoiceUi).length;
+  const totalProblems = scenario.filter(
+    (dialogue) => dialogue.showChoiceUi,
+  ).length;
   const currentDialogue = scenario[currentDialogueIndex];
+
+  useEffect(() => {
+    if (!isWrongAnswerEffectActive) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setIsWrongAnswerEffectActive(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [isWrongAnswerEffectActive]);
 
   const handleAdvanceDialogue = () => {
     const shouldRequireAnswer = currentDialogue?.showChoiceUi === true;
@@ -669,6 +687,7 @@ export default function GamePage() {
 
     if (answer !== correctAnswer) {
       setIsAudienceAnimating(false);
+      setIsWrongAnswerEffectActive(true);
       setTimingScore(0);
       setFinalScore(0);
       setIsTimingActive(false);
@@ -740,8 +759,16 @@ export default function GamePage() {
         />
 
         <div className="game-content">
-          <img src={boke} className="character boke" alt="boke" />
-          <img src={tukkomi} className="character tukkomi" alt="tukkomi" />
+          <img
+            src={isWrongAnswerEffectActive ? boke2 : boke}
+            className="character boke"
+            alt="boke"
+          />
+          <img
+            src={isWrongAnswerEffectActive ? tukkomi2 : tukkomi}
+            className="character tukkomi"
+            alt="tukkomi"
+          />
           <img src={mic} className="character mic" alt="microphone" />
 
           <div className="dialog" onClick={handleAdvanceDialogue}>
