@@ -7,6 +7,20 @@ export function getTimingScore(currentPosition, targetPosition) {
   return 0;
 }
 
+export function getAudienceReactionState(score) {
+  const safeScore = Math.min(100, Math.max(0, score));
+
+  if (safeScore <= 0) {
+    return { isLaughing: false, intensity: 0 };
+  }
+
+  if (safeScore >= 80) {
+    return { isLaughing: true, intensity: 2 };
+  }
+
+  return { isLaughing: true, intensity: 1 };
+}
+
 export function resolveRound({
   selectedAnswer,
   correctAnswer,

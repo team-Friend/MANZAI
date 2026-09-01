@@ -113,15 +113,47 @@ body {
   object-fit: contain;
 }
 
+.audience.audience-laugh {
+  animation: audience-bob 1s ease-in-out 1;
+}
+
+.audience.audience-laugh-1 {
+  animation-duration: 1s;
+}
+
+.audience.audience-laugh-2 {
+  animation-duration: 0.9s;
+}
+
+.audience.audience-laugh img {
+  animation: audience-sway 0.9s ease-in-out 1;
+}
+
+.audience.audience-laugh-2 img {
+  animation-duration: 0.8s;
+}
+
+.audience.audience-laugh img:nth-child(1) {
+  animation-delay: 0.04s;
+}
+
+.audience.audience-laugh img:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.audience.audience-laugh img:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
 .audience img:nth-child(3) {
-  width: 90%;
+  width: 100%;
   bottom: 0;
   left: calc(50% - 50px);
   z-index: 1;
 }
 
 .audience img:nth-child(2) {
-  width: 95%;
+  width: 100%;
   bottom: -30px;
   left: calc(50% + 28px);
   z-index: 2;
@@ -129,9 +161,45 @@ body {
 
 .audience img:nth-child(1) {
   width: 100%;
-  bottom: -50px;
-  left: calc(50% -80px);
+  bottom: -70px;
+  left: calc(50% - 50px);
   z-index: 3;
+}
+
+@keyframes audience-bob {
+  0% {
+    transform: translateX(-50%) translateY(0);
+  }
+  25% {
+    transform: translateX(-50%) translateY(-2px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(2px);
+  }
+  75% {
+    transform: translateX(-50%) translateY(-1px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes audience-sway {
+  0% {
+    transform: translateX(-50%) rotate(-1deg) translateY(0);
+  }
+  25% {
+    transform: translateX(-50%) rotate(2deg) translateY(-2px);
+  }
+  50% {
+    transform: translateX(-50%) rotate(-2deg) translateY(1px);
+  }
+  75% {
+    transform: translateX(-50%) rotate(1deg) translateY(-1px);
+  }
+  100% {
+    transform: translateX(-50%) rotate(0deg) translateY(0);
+  }
 }
 
 .choice-grid {
