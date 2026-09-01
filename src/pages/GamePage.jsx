@@ -50,7 +50,12 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "してねえよ別に！ \nただ歩いてるだけじゃねえか！ \nなんだお前",
+    text: "してねえよ別に！", //1
+    showChoiceUi: true,
+  },
+  {
+    speaker: "right",
+    text: "ただ歩いてるだけじゃねえか！ \nなんだお前",
   },
   {
     speaker: "right",
@@ -66,7 +71,8 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "1個も当てはまってねえよ！",
+    text: "1個も当てはまってねえよ！", //2
+    showChoiceUi: true,
   },
   {
     speaker: "left",
@@ -94,7 +100,8 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "モザイクね！",
+    text: "モザイクね！", //3
+    showChoiceUi: true,
   },
   {
     speaker: "right",
@@ -138,7 +145,12 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "お前だよ！ \n今、お前から聞いたわ！",
+    text: "お前だよ！", //4
+    showChoiceUi: true,
+  },
+  {
+    speaker: "left",
+    text: "お前から聞いたわ！",
   },
   {
     speaker: "left",
@@ -166,7 +178,12 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "テニスのペアか？ 俺は。 \n伊達みきおっつーんだよ！",
+    text: "テニスのペアか？ 俺は。", //5
+    showChoiceUi: true,
+  },
+  {
+    speaker: "left",
+    text: "伊達みきおっつーんだよ！",
   },
   {
     speaker: "right",
@@ -201,10 +218,6 @@ const scenario = [
     text: "誰がおデブちゃんだ！？ \n言われるか！",
   },
   {
-    speaker: "left",
-    text: "お前、そんなもん！伊達ちゃん！",
-  },
-  {
     speaker: "right",
     text: "えー、血液型は何型ですか？",
   },
@@ -222,7 +235,7 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "ややこしいわ、お前！",
+    text: "ややこしいわ、お前！", //6
   },
   {
     speaker: "left",
@@ -270,7 +283,8 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "何が聞きてえんだよ！？",
+    text: "何が聞きてえんだよ！？", //7
+    showChoiceUi: true,
   },
   {
     speaker: "left",
@@ -402,7 +416,8 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "…ねえと思ってるよ",
+    text: "…ねえと思ってるよ", //8
+    showChoiceUi: true,
   },
   {
     speaker: "right",
@@ -482,7 +497,8 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "カレーだわ。",
+    text: "カレーだわ。", //9
+    showChoiceUi: true,
   },
   {
     speaker: "left",
@@ -570,7 +586,12 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "お前だよ！もういいぜ！",
+    text: "お前だよ！", //10
+    showChoiceUi: true,
+  },
+  {
+    speaker: "left",
+    text: "もういいぜ！",
   },
   {
     speaker: "right",
@@ -588,10 +609,15 @@ export default function GamePage() {
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === "Enter") {
+        if (scenario[currentDialogueIndex]?.showChoiceUi) {
+          return;
+        }
+
         setCurrentDialogueIndex((prevIndex) => {
           if (prevIndex < scenario.length - 1) {
             return prevIndex + 1;
           }
+
           return prevIndex;
         });
       }
@@ -602,7 +628,7 @@ export default function GamePage() {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, []);
+  }, [currentDialogueIndex]);
 
   const correctAnswer = "B";
 
@@ -621,7 +647,11 @@ export default function GamePage() {
     setIsTimingActive(true);
   };
 
-  const handleTimingFinish = ({ timingScore: nextTimingScore, currentPosition, targetPosition }) => {
+  const handleTimingFinish = ({
+    timingScore: nextTimingScore,
+    currentPosition,
+    targetPosition,
+  }) => {
     const result = resolveRound({
       selectedAnswer,
       correctAnswer,
@@ -640,6 +670,7 @@ export default function GamePage() {
   };
 
   const currentDialogue = scenario[currentDialogueIndex];
+  const showChoiceUi = currentDialogue?.showChoiceUi === true;
 
   return (
     <div className="game-page">
@@ -677,29 +708,38 @@ export default function GamePage() {
             <img src={Audience3} alt="audience 3" />
           </div>
 
-          <div className="choice-grid">
-            {['A', 'B', 'C', 'D'].map((option) => (
-              <ChoiceButton
-                key={option}
-                text={option}
-                disabled={Boolean(selectedAnswer)}
-                onClick={() => handleAnswerClick(option)}
-              />
-            ))}
-          </div>
+          {showChoiceUi && (
+            <>
+              <div className="choice-grid">
+                {["A", "B", "C", "D"].map((option) => (
+                  <ChoiceButton
+                    key={option}
+                    text={option}
+                    disabled={Boolean(selectedAnswer)}
+                    onClick={() => handleAnswerClick(option)}
+                  />
+                ))}
+              </div>
 
-          <div className="timing-display">
-            <TimingBar isActive={isTimingActive} onFinish={handleTimingFinish} />
-          </div>
+              <div className="timing-display">
+                <TimingBar
+                  isActive={isTimingActive}
+                  onFinish={handleTimingFinish}
+                />
+              </div>
+            </>
+          )}
 
           <div className="audience-gauge">
             <AudienceGauge score={Math.min(100, finalScore)} />
           </div>
 
           {selectedAnswer && (
-            <div className="result-link" style={{ right: '3%', bottom: '12%' }}>
+            <div className="result-link" style={{ right: "3%", bottom: "12%" }}>
               <strong>
-                {selectedAnswer === correctAnswer ? `正解！ ${finalScore}点` : "不正解"}
+                {selectedAnswer === correctAnswer
+                  ? `正解！ ${finalScore}点`
+                  : "不正解"}
               </strong>
             </div>
           )}
