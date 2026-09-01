@@ -12,7 +12,11 @@ import { DialogueBoxRight } from "../components/DialogueBoxRight";
 import { ChoiceButton } from "../components/ChoiceButton";
 import { AudienceGauge } from "../components/AudienceGauge";
 import { TimingBar } from "../components/TimingBar";
-import { getAudienceReactionState, resolveRound } from "../gameLogic";
+import {
+  canAdvanceDialogue,
+  getAudienceReactionState,
+  resolveRound,
+} from "../gameLogic";
 import "./GamePage.css";
 
 const scenario = [
@@ -606,21 +610,41 @@ export default function GamePage() {
   const [finalScore, setFinalScore] = useState(0);
   const [timingScore, setTimingScore] = useState(0);
 
+  const currentDialogue = scenario[currentDialogueIndex];
+
+  const handleAdvanceDialogue = () => {
+    const shouldRequireAnswer = currentDialogue?.showChoiceUi === true;
+    const advanceAllowed = canAdvanceDialogue({
+      showChoiceUi: shouldRequireAnswer,
+      selectedAnswer,
+      isTimingActive,
+    });
+
+    if (!advanceAllowed) {
+      return;
+    }
+
+    if (shouldRequireAnswer) {
+      setSelectedAnswer(null);
+      setIsTimingActive(false);
+    }
+
+    setCurrentDialogueIndex((prevIndex) => {
+      if (prevIndex < scenario.length - 1) {
+        return prevIndex + 1;
+      }
+
+      return prevIndex;
+    });
+  };
+
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === "Enter") {
-        if (scenario[currentDialogueIndex]?.showChoiceUi) {
-          return;
-        }
-
-        setCurrentDialogueIndex((prevIndex) => {
-          if (prevIndex < scenario.length - 1) {
-            return prevIndex + 1;
-          }
-
-          return prevIndex;
-        });
+      if (event.key !== "Enter") {
+        return;
       }
+
+      handleAdvanceDialogue();
     };
 
     window.addEventListener("keydown", handleKeyPress);
@@ -628,7 +652,7 @@ export default function GamePage() {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [currentDialogueIndex]);
+  }, [currentDialogueIndex, selectedAnswer, isTimingActive, currentDialogue]);
 
   const correctAnswer = "B";
 
@@ -669,7 +693,6 @@ export default function GamePage() {
     }
   };
 
-  const currentDialogue = scenario[currentDialogueIndex];
   const showChoiceUi = currentDialogue?.showChoiceUi === true;
   const audienceReaction = getAudienceReactionState(finalScore);
   const audienceClassName = audienceReaction.isLaughing
@@ -690,7 +713,7 @@ export default function GamePage() {
           <img src={tukkomi} className="character tukkomi" alt="tukkomi" />
           <img src={mic} className="character mic" alt="microphone" />
 
-          <div className="dialog">
+          <div className="dialog" onClick={handleAdvanceDialogue}>
             <DialogueBoxRight
               text={
                 currentDialogue.speaker === "right" ? currentDialogue.text : ""
