@@ -7,6 +7,26 @@ export function getTimingScore(currentPosition, targetPosition) {
   return 0;
 }
 
+export function getAudienceGaugeProgress({ totalScore, totalProblems }) {
+  const safeTotalProblems = Math.max(1, Number(totalProblems) || 0);
+  const maxScore = safeTotalProblems * 100;
+  const safeTotalScore = Math.max(0, Number(totalScore) || 0);
+
+  if (maxScore <= 0) {
+    return 0;
+  }
+
+  return Math.min(100, (safeTotalScore / maxScore) * 100);
+}
+
+export function addAudienceScore({ currentScore, gainedScore, totalProblems }) {
+  const safeCurrentScore = Math.max(0, Number(currentScore) || 0);
+  const safeGainedScore = Math.max(0, Number(gainedScore) || 0);
+  const maxScore = Math.max(1, Number(totalProblems) || 0) * 100;
+
+  return Math.min(maxScore, safeCurrentScore + safeGainedScore);
+}
+
 export function getAudienceReactionState(score) {
   const safeScore = Math.min(100, Math.max(0, score));
 
