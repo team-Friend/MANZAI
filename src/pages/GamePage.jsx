@@ -612,6 +612,8 @@ export default function GamePage() {
   const [finalScore, setFinalScore] = useState(0);
   const [timingScore, setTimingScore] = useState(0);
   const [audienceScore, setAudienceScore] = useState(0);
+  const [isAudienceAnimating, setIsAudienceAnimating] = useState(false);
+  const [audienceAnimationKey, setAudienceAnimationKey] = useState(0);
 
   const totalProblems = scenario.filter((dialogue) => dialogue.showChoiceUi).length;
   const currentDialogue = scenario[currentDialogueIndex];
@@ -666,6 +668,7 @@ export default function GamePage() {
     setSelectedAnswer(answer);
 
     if (answer !== correctAnswer) {
+      setIsAudienceAnimating(false);
       setTimingScore(0);
       setFinalScore(0);
       setIsTimingActive(false);
@@ -691,7 +694,7 @@ export default function GamePage() {
     setFinalScore(result.finalScore);
     setIsTimingActive(false);
 
-    if (result.isCorrect) {
+    if (result.isCorrect && result.finalScore > 0) {
       setAudienceScore((prevScore) =>
         addAudienceScore({
           currentScore: prevScore,
@@ -699,9 +702,14 @@ export default function GamePage() {
           totalProblems,
         })
       );
+      setIsAudienceAnimating(true);
+      setAudienceAnimationKey((prevKey) => prevKey + 1);
       setTimingScore(nextTimingScore);
       setFinalScore(nextTimingScore);
+      return;
     }
+
+    setIsAudienceAnimating(false);
   };
 
   const showChoiceUi = currentDialogue?.showChoiceUi === true;
@@ -710,9 +718,10 @@ export default function GamePage() {
     totalProblems,
   });
   const audienceReaction = getAudienceReactionState(audienceGaugeScore);
-  const audienceClassName = audienceReaction.isLaughing
-    ? `audience audience-laugh audience-laugh-${audienceReaction.intensity}`
-    : "audience";
+  const audienceClassName =
+    isAudienceAnimating && audienceReaction.isLaughing
+      ? `audience audience-laugh audience-laugh-${audienceReaction.intensity}`
+      : "audience";
 
   return (
     <div className="game-page">
@@ -744,7 +753,7 @@ export default function GamePage() {
             />
           </div>
 
-          <div className={audienceClassName}>
+          <div key={audienceAnimationKey} className={audienceClassName}>
             <img src={Audience1} alt="audience 1" />
             <img src={Audience2} alt="audience 2" />
             <img src={Audience3} alt="audience 3" />
