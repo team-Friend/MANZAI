@@ -670,14 +670,11 @@ export default function GamePage() {
   };
 
   const currentDialogue = scenario[currentDialogueIndex];
-<<<<<<< HEAD
   const showChoiceUi = currentDialogue?.showChoiceUi === true;
-=======
   const audienceReaction = getAudienceReactionState(finalScore);
   const audienceClassName = audienceReaction.isLaughing
     ? `audience audience-laugh audience-laugh-${audienceReaction.intensity}`
     : "audience";
->>>>>>> 1fc8ee53fe5252b102b8dade3bb805ca003d12fe
 
   return (
     <div className="game-page">
