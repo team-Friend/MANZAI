@@ -10,6 +10,7 @@ import Audience1 from "../assets/images/audience1.png";
 import Audience2 from "../assets/images/audience2.png";
 import Audience3 from "../assets/images/audience3.png";
 import enter from "../assets/images/enter.png";
+import shift from "../assets/images/shift.png";
 import { DialogueBoxLeft } from "../components/DialogueBoxLeft";
 import { DialogueBoxRight } from "../components/DialogueBoxRight";
 import { ChoiceButton } from "../components/ChoiceButton";
@@ -754,19 +755,44 @@ export default function GamePage() {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [currentDialogueIndex, selectedAnswer, isTimingActive, currentDialogue, handleAdvanceDialogue]);
+  }, [
+    currentDialogueIndex,
+    selectedAnswer,
+    isTimingActive,
+    currentDialogue,
+    handleAdvanceDialogue,
+  ]);
 
   const correctAnswer = "B";
   const currentQuiz = currentDialogue?.quiz;
   const answerMode = currentDialogue?.answerMode ?? "timing";
   const expectedCorrectAnswer = currentQuiz?.correctAnswer ?? correctAnswer;
 
-  const handleAnswerClick = useCallback((answer) => {
-    if (selectedAnswer) return;
+  const handleAnswerClick = useCallback(
+    (answer) => {
+      if (selectedAnswer) return;
 
-    setSelectedAnswer(answer);
+      setSelectedAnswer(answer);
 
-    if (answerMode === "advance") {
+      if (answerMode === "advance") {
+        if (answer !== expectedCorrectAnswer) {
+          setIsAudienceAnimating(false);
+          setIsWrongAnswerEffectActive(true);
+          setTimingScore(0);
+          setFinalScore(0);
+          setIsTimingActive(false);
+          return;
+        }
+
+        setTimeout(() => {
+          setSelectedAnswer(null);
+          setCurrentDialogueIndex((prevIndex) =>
+            prevIndex < scenario.length - 1 ? prevIndex + 1 : prevIndex,
+          );
+        }, 300);
+        return;
+      }
+
       if (answer !== expectedCorrectAnswer) {
         setIsAudienceAnimating(false);
         setIsWrongAnswerEffectActive(true);
@@ -776,26 +802,10 @@ export default function GamePage() {
         return;
       }
 
-      setTimeout(() => {
-        setSelectedAnswer(null);
-        setCurrentDialogueIndex((prevIndex) =>
-          prevIndex < scenario.length - 1 ? prevIndex + 1 : prevIndex,
-        );
-      }, 300);
-      return;
-    }
-
-    if (answer !== expectedCorrectAnswer) {
-      setIsAudienceAnimating(false);
-      setIsWrongAnswerEffectActive(true);
-      setTimingScore(0);
-      setFinalScore(0);
-      setIsTimingActive(false);
-      return;
-    }
-
-    setIsTimingActive(true);
-  }, [answerMode, expectedCorrectAnswer, selectedAnswer]);
+      setIsTimingActive(true);
+    },
+    [answerMode, expectedCorrectAnswer, selectedAnswer],
+  );
 
   useEffect(() => {
     const options = currentQuiz?.options ?? ["A", "B", "C", "D"];
@@ -978,6 +988,10 @@ export default function GamePage() {
                     />
                   ),
                 )}
+              </div>
+              <div className="shift-prompt">
+                <img src={shift} className="shift-icon" alt="shift icon" />
+                <p className="shift-text">→でツッコむ</p>
               </div>
 
               <div className="timing-display">
