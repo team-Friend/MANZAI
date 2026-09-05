@@ -9,6 +9,7 @@ import mic from "../assets/images/mic.png";
 import Audience1 from "../assets/images/audience1.png";
 import Audience2 from "../assets/images/audience2.png";
 import Audience3 from "../assets/images/audience3.png";
+import enter from "../assets/images/enter.png";
 import { DialogueBoxLeft } from "../components/DialogueBoxLeft";
 import { DialogueBoxRight } from "../components/DialogueBoxRight";
 import { ChoiceButton } from "../components/ChoiceButton";
@@ -875,6 +876,11 @@ export default function GamePage() {
             alt="tukkomi"
           />
           <img src={mic} className="character mic" alt="microphone" />
+
+          <div className="enter-prompt">
+            <img src={enter} className="enter-icon" alt="enter icon" />
+            <p>→話を進める</p>
+          </div>
 
           <div className="dialog" onClick={handleAdvanceDialogue}>
             <DialogueBoxRight

@@ -264,3 +264,19 @@ button {
   color: #111;
   font-weight: 700;
 }
+
+.enter-prompt {
+  position: absolute;
+  left: 8%;
+  bottom: 3%;
+  transform: translateX(-50%);
+  color: #fffafa;
+  z-index: 4;
+}
+
+.enter-icon {
+  width: 64px;
+  height: auto;
+  left: 10%;
+  margin-right: 8px;
+}
