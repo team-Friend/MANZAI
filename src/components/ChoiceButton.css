@@ -9,8 +9,10 @@
   margin: 10px;
 }
 
-.choice-btn:not(:disabled):hover {
+.choice-btn.choice-btn-highlighted {
   background-color: #dcb072;
+  outline: 5px solid #fff;
+  outline-offset: 3px;
   transform: translateY(-7px);
 }
 

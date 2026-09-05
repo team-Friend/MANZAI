@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import bgImage from "../assets/images/stage1.png";
 import tukkomi from "../assets/images/tukkomi.png";
@@ -688,6 +688,9 @@ export default function GamePage() {
   const [audienceAnimationKey, setAudienceAnimationKey] = useState(0);
   const [isWrongAnswerEffectActive, setIsWrongAnswerEffectActive] =
     useState(false);
+  const [highlightedChoiceIndex, setHighlightedChoiceIndex] = useState(0);
+  const [highlightedChoiceDialogueIndex, setHighlightedChoiceDialogueIndex] =
+    useState(0);
 
   const totalProblems = scenario.filter(
     (dialogue) => dialogue.showChoiceUi,
@@ -710,7 +713,7 @@ export default function GamePage() {
     return () => clearTimeout(timer);
   }, [isWrongAnswerEffectActive]);
 
-  const handleAdvanceDialogue = () => {
+  const handleAdvanceDialogue = useCallback(() => {
     const shouldRequireAnswer = currentDialogue?.showChoiceUi === true;
     const advanceAllowed = canAdvanceDialogue({
       showChoiceUi: shouldRequireAnswer,
@@ -734,11 +737,11 @@ export default function GamePage() {
 
       return prevIndex;
     });
-  };
+  }, [currentDialogue, selectedAnswer, isTimingActive]);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key !== "Enter") {
+      if (event.key !== "Enter" || currentDialogue?.showChoiceUi) {
         return;
       }
 
@@ -750,14 +753,14 @@ export default function GamePage() {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [currentDialogueIndex, selectedAnswer, isTimingActive, currentDialogue]);
+  }, [currentDialogueIndex, selectedAnswer, isTimingActive, currentDialogue, handleAdvanceDialogue]);
 
   const correctAnswer = "B";
   const currentQuiz = currentDialogue?.quiz;
   const answerMode = currentDialogue?.answerMode ?? "timing";
   const expectedCorrectAnswer = currentQuiz?.correctAnswer ?? correctAnswer;
 
-  const handleAnswerClick = (answer) => {
+  const handleAnswerClick = useCallback((answer) => {
     if (selectedAnswer) return;
 
     setSelectedAnswer(answer);
@@ -791,7 +794,60 @@ export default function GamePage() {
     }
 
     setIsTimingActive(true);
-  };
+  }, [answerMode, expectedCorrectAnswer, selectedAnswer]);
+
+  useEffect(() => {
+    const options = currentQuiz?.options ?? ["A", "B", "C", "D"];
+
+    const handleChoiceKeyPress = (event) => {
+      if (!currentDialogue?.showChoiceUi || selectedAnswer) {
+        return;
+      }
+
+      const columnCount = 2;
+      let nextIndex;
+      const activeChoiceIndex =
+        highlightedChoiceDialogueIndex === currentDialogueIndex
+          ? highlightedChoiceIndex
+          : 0;
+
+      if (event.key === "ArrowLeft") {
+        nextIndex = activeChoiceIndex - 1;
+      } else if (event.key === "ArrowRight") {
+        nextIndex = activeChoiceIndex + 1;
+      } else if (event.key === "ArrowUp") {
+        nextIndex = activeChoiceIndex - columnCount;
+      } else if (event.key === "ArrowDown") {
+        nextIndex = activeChoiceIndex + columnCount;
+      } else if (event.key === "Enter") {
+        event.preventDefault();
+        handleAnswerClick(options[activeChoiceIndex]);
+        return;
+      } else {
+        return;
+      }
+
+      event.preventDefault();
+      setHighlightedChoiceIndex(
+        Math.max(0, Math.min(nextIndex, options.length - 1)),
+      );
+      setHighlightedChoiceDialogueIndex(currentDialogueIndex);
+    };
+
+    window.addEventListener("keydown", handleChoiceKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleChoiceKeyPress);
+    };
+  }, [
+    currentDialogue,
+    currentDialogueIndex,
+    currentQuiz,
+    highlightedChoiceDialogueIndex,
+    highlightedChoiceIndex,
+    selectedAnswer,
+    handleAnswerClick,
+  ]);
 
   const handleTimingFinish = ({
     timingScore: nextTimingScore,
@@ -902,10 +958,15 @@ export default function GamePage() {
             <>
               <div className="choice-grid">
                 {(currentQuiz?.options ?? ["A", "B", "C", "D"]).map(
-                  (option) => (
+                  (option, optionIndex) => (
                     <ChoiceButton
                       key={option}
                       text={option}
+                      className={
+                        optionIndex === highlightedChoiceIndex
+                          ? "choice-btn-highlighted"
+                          : ""
+                      }
                       disabled={Boolean(selectedAnswer)}
                       onClick={() => handleAnswerClick(option)}
                     />
