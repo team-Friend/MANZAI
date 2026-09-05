@@ -58,11 +58,16 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "してねえよ別に！", //1
+    text: "...",
     showChoiceUi: true,
+    answerMode: "timing",
+    quiz: {
+      options: ["あ", "してねえよ別に！", "い", "う"],
+      correctAnswer: "してねえよ別に！",
+    },
   },
   {
-    speaker: "right",
+    speaker: "left",
     text: "ただ歩いてるだけじゃねえか！ \nなんだお前",
   },
   {
@@ -79,8 +84,13 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "1個も当てはまってねえよ！", //2
+    text: "...", //2
     showChoiceUi: true,
+    answerMode: "timing",
+    quiz: {
+      options: ["あ", "1個も当てはまってねえよ！", "い", "う"],
+      correctAnswer: "1個も当てはまってねえよ！",
+    },
   },
   {
     speaker: "left",
@@ -108,8 +118,13 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "モザイクね！", //3
+    text: "...", //3
     showChoiceUi: true,
+    answerMode: "timing",
+    quiz: {
+      options: ["あ", "モザイクね！", "い", "う"],
+      correctAnswer: "モザイクね！",
+    },
   },
   {
     speaker: "right",
@@ -153,8 +168,13 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "お前だよ！", //4
+    text: "...", //4
     showChoiceUi: true,
+    answerMode: "timing",
+    quiz: {
+      options: ["あ", "お前だよ！", "い", "う"],
+      correctAnswer: "お前だよ！",
+    },
   },
   {
     speaker: "left",
@@ -186,8 +206,13 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "テニスのペアか？ 俺は。", //5
+    text: "...", //5
     showChoiceUi: true,
+    answerMode: "timing",
+    quiz: {
+      options: ["あ", "テニスのペアか？俺は", "い", "う"],
+      correctAnswer: "テニスのペアか？俺は",
+    },
   },
   {
     speaker: "left",
@@ -291,8 +316,13 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "何が聞きてえんだよ！？", //7
+    text: "...", //7
     showChoiceUi: true,
+    answerMode: "timing",
+    quiz: {
+      options: ["あ", "何が聞きてえんだよ！？", "い", "う"],
+      correctAnswer: "何が聞きてえんだよ！？",
+    },
   },
   {
     speaker: "left",
@@ -424,8 +454,13 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "…ねえと思ってるよ", //8
+    text: "...", //8
     showChoiceUi: true,
+    answerMode: "timing",
+    quiz: {
+      options: ["あ", "...ねえと思ってるよ", "い", "う"],
+      correctAnswer: "...ねえと思ってるよ",
+    },
   },
   {
     speaker: "right",
@@ -505,8 +540,13 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "カレーだわ。", //9
+    text: "...", //9
     showChoiceUi: true,
+    answerMode: "timing",
+    quiz: {
+      options: ["あ", "YES", "い", "カレー"],
+      correctAnswer: "カレー",
+    },
   },
   {
     speaker: "left",
@@ -594,8 +634,13 @@ const scenario = [
   },
   {
     speaker: "left",
-    text: "お前だよ！", //10
+    text: "...", //10
     showChoiceUi: true,
+    answerMode: "timing",
+    quiz: {
+      options: ["あ", "お前だよ！", "い", "う"],
+      correctAnswer: "お前だよ！",
+    },
   },
   {
     speaker: "left",
@@ -631,7 +676,11 @@ export default function GamePage() {
 
     const timer = setTimeout(() => {
       setIsWrongAnswerEffectActive(false);
-    }, 5000);
+      setSelectedAnswer(null);
+      setCurrentDialogueIndex((prevIndex) =>
+        prevIndex < scenario.length - 1 ? prevIndex + 1 : prevIndex,
+      );
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, [isWrongAnswerEffectActive]);
@@ -679,13 +728,35 @@ export default function GamePage() {
   }, [currentDialogueIndex, selectedAnswer, isTimingActive, currentDialogue]);
 
   const correctAnswer = "B";
+  const currentQuiz = currentDialogue?.quiz;
+  const answerMode = currentDialogue?.answerMode ?? "timing";
+  const expectedCorrectAnswer = currentQuiz?.correctAnswer ?? correctAnswer;
 
   const handleAnswerClick = (answer) => {
     if (selectedAnswer) return;
 
     setSelectedAnswer(answer);
 
-    if (answer !== correctAnswer) {
+    if (answerMode === "advance") {
+      if (answer !== expectedCorrectAnswer) {
+        setIsAudienceAnimating(false);
+        setIsWrongAnswerEffectActive(true);
+        setTimingScore(0);
+        setFinalScore(0);
+        setIsTimingActive(false);
+        return;
+      }
+
+      setTimeout(() => {
+        setSelectedAnswer(null);
+        setCurrentDialogueIndex((prevIndex) =>
+          prevIndex < scenario.length - 1 ? prevIndex + 1 : prevIndex,
+        );
+      }, 300);
+      return;
+    }
+
+    if (answer !== expectedCorrectAnswer) {
       setIsAudienceAnimating(false);
       setIsWrongAnswerEffectActive(true);
       setTimingScore(0);
@@ -704,7 +775,7 @@ export default function GamePage() {
   }) => {
     const result = resolveRound({
       selectedAnswer,
-      correctAnswer,
+      correctAnswer: expectedCorrectAnswer,
       currentPosition,
       targetPosition,
     });
@@ -732,10 +803,19 @@ export default function GamePage() {
 
       setTimingScore(nextTimingScore);
       setFinalScore(nextTimingScore);
+      setSelectedAnswer(null);
+      setCurrentDialogueIndex((prevIndex) =>
+        prevIndex < scenario.length - 1 ? prevIndex + 1 : prevIndex,
+      );
       return;
     }
 
-    setIsAudienceAnimating(false);
+    setTimeout(() => {
+      setSelectedAnswer(null);
+      setCurrentDialogueIndex((prevIndex) =>
+        prevIndex < scenario.length - 1 ? prevIndex + 1 : prevIndex,
+      );
+    }, 500);
   };
 
   const showChoiceUi = currentDialogue?.showChoiceUi === true;
@@ -796,14 +876,16 @@ export default function GamePage() {
           {showChoiceUi && (
             <>
               <div className="choice-grid">
-                {["A", "B", "C", "D"].map((option) => (
-                  <ChoiceButton
-                    key={option}
-                    text={option}
-                    disabled={Boolean(selectedAnswer)}
-                    onClick={() => handleAnswerClick(option)}
-                  />
-                ))}
+                {(currentQuiz?.options ?? ["A", "B", "C", "D"]).map(
+                  (option) => (
+                    <ChoiceButton
+                      key={option}
+                      text={option}
+                      disabled={Boolean(selectedAnswer)}
+                      onClick={() => handleAnswerClick(option)}
+                    />
+                  ),
+                )}
               </div>
 
               <div className="timing-display">
@@ -822,7 +904,7 @@ export default function GamePage() {
           {selectedAnswer && (
             <div className="result-link" style={{ right: "3%", bottom: "12%" }}>
               <strong>
-                {selectedAnswer === correctAnswer
+                {selectedAnswer === expectedCorrectAnswer
                   ? `正解！ ${finalScore}点`
                   : "不正解"}
               </strong>
