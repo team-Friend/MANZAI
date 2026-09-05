@@ -101,6 +101,26 @@ export const TimingBar = ({ isActive, onFinish }) => {
     });
   };
 
+  useEffect(() => {
+    if (!isActive || !isPlaying) {
+      return undefined;
+    }
+
+    const handleKeyDown = (event) => {
+      if (
+        event.code === "Space" ||
+        event.key === " " ||
+        event.key === "Spacebar"
+      ) {
+        event.preventDefault();
+        handleStop();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isActive, isPlaying, handleStop]);
+
   return (
     <div className="timing-bar-wrapper">
       <div className="timing-bar-container">
