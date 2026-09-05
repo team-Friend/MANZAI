@@ -7,6 +7,10 @@ export function getTimingScore(currentPosition, targetPosition) {
   return 0;
 }
 
+export function isPerfectTimingScore(score) {
+  return Number(score) === 100;
+}
+
 export function getAudienceGaugeProgress({ totalScore, totalProblems }) {
   const safeTotalProblems = Math.max(1, Number(totalProblems) || 0);
   const maxScore = safeTotalProblems * 100;
@@ -41,7 +45,11 @@ export function getAudienceReactionState(score) {
   return { isLaughing: true, intensity: 1 };
 }
 
-export function canAdvanceDialogue({ showChoiceUi, selectedAnswer, isTimingActive }) {
+export function canAdvanceDialogue({
+  showChoiceUi,
+  selectedAnswer,
+  isTimingActive,
+}) {
   if (!showChoiceUi) {
     return true;
   }

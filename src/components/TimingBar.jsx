@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './TimingBar.css';
-import { getTimingScore } from '../gameLogic';
+import React, { useState, useEffect, useRef } from "react";
+import "./TimingBar.css";
+import { getTimingScore, isPerfectTimingScore } from "../gameLogic";
+import perfectSound from "../assets/sounds/VSQSE_0452_laughter_01.mp3";
 
 export const TimingBar = ({ isActive, onFinish }) => {
   const [position, setPosition] = useState(0);
@@ -55,14 +56,43 @@ export const TimingBar = ({ isActive, onFinish }) => {
     return () => cancelAnimationFrame(requestRef.current);
   }, [isPlaying]);
 
+  const playPerfectTimingSound = () => {
+    const audio = new Audio(perfectSound);
+    audio.volume = 0.35;
+
+    const startTime = 0.1;
+    const trimDurationMs = 3000;
+
+    try {
+      audio.currentTime = startTime;
+      audio.play().catch(() => {
+        // no-op: some browsers require a user interaction before audio playback starts
+      });
+
+      setTimeout(() => {
+        audio.pause();
+        audio.currentTime = startTime;
+      }, trimDurationMs);
+    } catch {
+      // no-op
+    }
+  };
+
   const handleStop = () => {
     if (!isPlaying) return;
 
     cancelAnimationFrame(requestRef.current);
     setIsPlaying(false);
 
-    const timingScore = getTimingScore(exactPositionRef.current, targetPosition);
+    const timingScore = getTimingScore(
+      exactPositionRef.current,
+      targetPosition,
+    );
     setScore(timingScore);
+
+    if (isPerfectTimingScore(timingScore)) {
+      playPerfectTimingSound();
+    }
 
     onFinish?.({
       timingScore,
@@ -76,7 +106,7 @@ export const TimingBar = ({ isActive, onFinish }) => {
       <div className="timing-bar-container">
         <div
           className="target-area"
-          style={{ left: `${targetPosition}%`, transform: 'translateX(-50%)' }}
+          style={{ left: `${targetPosition}%`, transform: "translateX(-50%)" }}
         >
           <div className="target-green"></div>
           <div className="target-brown"></div>
@@ -91,7 +121,11 @@ export const TimingBar = ({ isActive, onFinish }) => {
         {isActive && isPlaying && (
           <button
             onPointerDown={handleStop}
-            style={{ backgroundColor: '#ff5555', color: 'white', touchAction: 'manipulation' }}
+            style={{
+              backgroundColor: "#ff5555",
+              color: "white",
+              touchAction: "manipulation",
+            }}
           >
             ツッコむ
           </button>
