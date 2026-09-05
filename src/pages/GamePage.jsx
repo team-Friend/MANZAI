@@ -62,7 +62,12 @@ const scenario = [
     showChoiceUi: true,
     answerMode: "timing",
     quiz: {
-      options: ["あ", "してねえよ別に！", "い", "う"],
+      options: [
+        "分かります！？",
+        "してねえよ別に！",
+        "おまえがな！",
+        "こちらこそ",
+      ],
       correctAnswer: "してねえよ別に！",
     },
   },
@@ -88,7 +93,12 @@ const scenario = [
     showChoiceUi: true,
     answerMode: "timing",
     quiz: {
-      options: ["あ", "1個も当てはまってねえよ！", "い", "う"],
+      options: [
+        "俺30代ですけど！？",
+        "間に合ってます",
+        "私のこと？❤",
+        "1個も当てはまってねえよ！",
+      ],
       correctAnswer: "1個も当てはまってねえよ！",
     },
   },
@@ -122,7 +132,7 @@ const scenario = [
     showChoiceUi: true,
     answerMode: "timing",
     quiz: {
-      options: ["あ", "モザイクね！", "い", "う"],
+      options: ["木材ね！", "モナリザね！", "モザイクね！", "モモンガね！"],
       correctAnswer: "モザイクね！",
     },
   },
@@ -172,7 +182,7 @@ const scenario = [
     showChoiceUi: true,
     answerMode: "timing",
     quiz: {
-      options: ["あ", "お前だよ！", "い", "う"],
+      options: ["お前だよ！", "SNSです", "知らねえよ！", "どのアンケート？"],
       correctAnswer: "お前だよ！",
     },
   },
@@ -210,7 +220,12 @@ const scenario = [
     showChoiceUi: true,
     answerMode: "timing",
     quiz: {
-      options: ["あ", "テニスのペアか？俺は", "い", "う"],
+      options: [
+        "いてもいいだろ！",
+        "佐藤誰だよ！",
+        "テニスのペアか？俺は",
+        "いねえだろ",
+      ],
       correctAnswer: "テニスのペアか？俺は",
     },
   },
@@ -320,7 +335,12 @@ const scenario = [
     showChoiceUi: true,
     answerMode: "timing",
     quiz: {
-      options: ["あ", "何が聞きてえんだよ！？", "い", "う"],
+      options: [
+        "どっちでもねえよ！",
+        "何が聞きてえんだよ！？",
+        "その日暮らしって何？",
+        "だとしたらなんだよ",
+      ],
       correctAnswer: "何が聞きてえんだよ！？",
     },
   },
@@ -458,7 +478,12 @@ const scenario = [
     showChoiceUi: true,
     answerMode: "timing",
     quiz: {
-      options: ["あ", "...ねえと思ってるよ", "い", "う"],
+      options: [
+        "うどん食べたいです",
+        "関係ねえだろ！",
+        "責任感じてるよ",
+        "...ねえと思ってるよ",
+      ],
       correctAnswer: "...ねえと思ってるよ",
     },
   },
@@ -544,7 +569,7 @@ const scenario = [
     showChoiceUi: true,
     answerMode: "timing",
     quiz: {
-      options: ["あ", "YES", "い", "カレー"],
+      options: ["NO", "YES", "肉じゃが", "カレー"],
       correctAnswer: "カレー",
     },
   },
@@ -638,7 +663,7 @@ const scenario = [
     showChoiceUi: true,
     answerMode: "timing",
     quiz: {
-      options: ["あ", "お前だよ！", "い", "う"],
+      options: ["お前だよ！", "お袋だよ！", "誰もいねえよ！", "親父だよ！"],
       correctAnswer: "お前だよ！",
     },
   },
