@@ -40,21 +40,21 @@
 .target-green {
   position: absolute;
   height: 100%;
-  width: 90px;
+  width: 150px;
   background-color: #4ade80;
 }
 
 .target-brown {
   position: absolute;
   height: 100%;
-  width: 48px;
+  width: 90px;
   background-color: #facc15;
 }
 
 .target-orange {
   position: absolute;
   height: 100%;
-  width: 18px;
+  width: 24px;
   background-color: #f97316;
 }
 

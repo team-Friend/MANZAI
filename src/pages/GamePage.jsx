@@ -911,7 +911,11 @@ export default function GamePage() {
             </div>
           )}
 
-          <Link to="/result" className="result-link">
+          <Link
+            to="/result"
+            state={{ audienceScore, totalProblems }}
+            className="result-link"
+          >
             <button type="button">結果を見る</button>
           </Link>
         </div>
