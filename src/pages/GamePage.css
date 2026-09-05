@@ -280,3 +280,27 @@ button {
   left: 10%;
   margin-right: 8px;
 }
+
+.shift-prompt {
+  position: absolute;
+  left: 8%;
+  bottom: 20%;
+  transform: translateX(-50%);
+  color: #fffafa;
+  z-index: 4;
+}
+
+.shift-icon {
+  width: 64px;
+  height: auto;
+  bottom: 200%;
+  left: 10%;
+  margin-right: 8px;
+}
+
+.shift-text {
+  top: 50%;
+  bottom: 50%;
+  transform: translateY(-50%);
+  margin-top: -10px;
+}
