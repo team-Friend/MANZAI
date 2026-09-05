@@ -19,6 +19,24 @@ export function getAudienceGaugeProgress({ totalScore, totalProblems }) {
   return Math.min(100, (safeTotalScore / maxScore) * 100);
 }
 
+export function getResultLevel(score) {
+  const safeScore = Math.min(100, Math.max(0, Number(score) || 0));
+
+  if (safeScore >= 90) {
+    return "kanpeki";
+  }
+
+  if (safeScore >= 75) {
+    return "hutuu";
+  }
+
+  if (safeScore >= 50) {
+    return "uwo";
+  }
+
+  return "sainounasi";
+}
+
 export function addAudienceScore({ currentScore, gainedScore, totalProblems }) {
   const safeCurrentScore = Math.max(0, Number(currentScore) || 0);
   const safeGainedScore = Math.max(0, Number(gainedScore) || 0);
