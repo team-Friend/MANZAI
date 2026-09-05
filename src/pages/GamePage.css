@@ -68,7 +68,7 @@ body {
   bottom: 15%;
   transform: translateX(-50%);
   width: clamp(120px, 14vw, 200px);
-  z-index: 3;
+  z-index: 2;
 }
 
 .dialog {
