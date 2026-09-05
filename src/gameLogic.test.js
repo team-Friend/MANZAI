@@ -5,6 +5,7 @@ import {
   canAdvanceDialogue,
   getAudienceGaugeProgress,
   getAudienceReactionState,
+  getResultLevel,
   getTimingScore,
   isPerfectTimingScore,
   resolveRound,
@@ -87,6 +88,16 @@ test("問題数に応じて満点が全問満点で最大化される", () => {
     getAudienceGaugeProgress({ totalScore: 250, totalProblems: 4 }),
     62.5,
   );
+});
+
+test("点数に応じて結果ランクが4段階で決まる", () => {
+  assert.equal(getResultLevel(100), "kanpeki");
+  assert.equal(getResultLevel(90), "kanpeki");
+  assert.equal(getResultLevel(89), "hutuu");
+  assert.equal(getResultLevel(75), "hutuu");
+  assert.equal(getResultLevel(74), "uwo");
+  assert.equal(getResultLevel(50), "uwo");
+  assert.equal(getResultLevel(49), "sainounasi");
 });
 
 test("正解ごとにスコアが蓄積され、ステージ全体で満点を超えない", () => {
