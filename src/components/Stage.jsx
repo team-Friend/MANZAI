@@ -1,7 +1,7 @@
 import Background from "./Background";
 import Character from "./Character";
 import DialogueBox from "./DialogueBox";
-import ChoiceButtons from "./ChoiceButtons";
+import ChoiceButtons from "./Buttons";
 import TimingBar from "./TimingBar";
 import "./Stage.css";
 
